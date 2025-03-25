@@ -1,0 +1,2 @@
+pytubefix
+#and ffmpeg in machine PATH
