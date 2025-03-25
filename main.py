@@ -9,7 +9,6 @@ from pytubefix.cli import on_progress
 import subprocess
 
 def convert_to_mp3(input_path) -> Path: #Reliable.
-    print("INFO: converting to MP3...")
     downloads_folder = Path.home() / "Downloads"
     output_file = downloads_folder / (Path(input_path).stem + ".mp3")
 
@@ -30,13 +29,14 @@ url_download = str(input("Enter the video Url\t->"))
 yt_client = pytube.YouTube(url=url_download, on_progress_callback=on_progress)
 if yt_client: print("INFO: Video found: " + yt_client.title)
 
-yt_stream = yt_client.streams.get_audio_only()
-downloaded_file = yt_stream.download("./temp-downloads/")
+yt_audio_stream = yt_client.streams.get_audio_only()
+downloaded_file = yt_audio_stream.download("./temp-downloads/")
 if downloaded_file: print("INFO: m4a downloaded.")
 
 base_tempPath = downloaded_file
 
+print("INFO: converting to MP3...")
 locationMp3 = convert_to_mp3(base_tempPath)
 
 # result of success
-print("Video has been successfully downloaded, in mp3: " + str(locationMp3))
+print("Video has been successfully saved, in .mp3: " + str(locationMp3))
