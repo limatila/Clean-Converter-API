@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from middleware.main.conversion import *
-from middleware.main.youtubeDownloaders import *
+from middleware.conversion import *
+from services.youtubeDownloaders import *
 
 app = FastAPI(version="0.1", title="Clean Converter API",
               description="Mp3 downloader only, for now.")
