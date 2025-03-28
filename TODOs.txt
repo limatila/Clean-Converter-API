@@ -1,0 +1,12 @@
+1. try refactor conversion subprocess into ffmpeg-python libr usage
+2. check if there's already a file converted to be delivered
+3. delete file after delivery
+4. add concurrency management to multiple requests with minimal lag #! beware with file concurrency
+5. add additional url validation steps in api calls, and more validations troughout code
+
+Later:
+6. DEPLOY in cloud
+7. add additional security measures if necessary, for stable execution
+*- make post about into
+
+8*. add front for requests, maybe learn to create a browser extension?
