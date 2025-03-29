@@ -6,7 +6,8 @@
 
 Later:
 6. DEPLOY in cloud
-7. add additional security measures if necessary, for stable execution
+7. deliver audio in compressed files (best option is .7z)
+8. add additional security measures if necessary, for stable execution
 *- make post about into
 
-8*. add front for requests, maybe learn to create a browser extension?
+9*. add front for requests, maybe learn to create a browser extension?
