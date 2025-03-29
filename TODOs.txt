@@ -1,4 +1,4 @@
-1. try refactor conversion subprocess into ffmpeg-python libr usage
+1. try refactor conversion subprocess into ffmpeg-python libr usage - DONE
 2. check if there's already a file converted to be delivered
 3. delete file after delivery
 4. add concurrency management to multiple requests with minimal lag #! beware with file concurrency
