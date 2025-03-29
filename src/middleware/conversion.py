@@ -11,6 +11,9 @@ def convert_to_mp3(input_path: str) -> Path: #Reliable.
     output_path = conversionFolderPath / newConvertedFilePath
 
     #TODO: add condition if file exists
+    if output_path.is_file():
+        print("INFO: conversion already exists, proceeding... ")
+        return output_path
 
     print("INFO: converting to MP3...")
     conversionProcess = (
@@ -28,7 +31,7 @@ def convert_to_mp3(input_path: str) -> Path: #Reliable.
     out, err = conversionProcess.communicate() 
 
     if conversionProcess.returncode == 0:
-        return output_path
+        return output_path # returns 
     else:
         print("-------Last Logs:\n", out.decode())
         raise Exception(f"Audio conversion failed on subprocess: {err.decode()}")

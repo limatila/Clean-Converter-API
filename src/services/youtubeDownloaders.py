@@ -3,7 +3,7 @@ from pathlib import Path
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
 
-def download_raw_audio(url: str):
+def download_raw_audio(url: str) -> str:
     yt_Client = YouTube(url, on_progress_callback=on_progress)
     downloadsFolderPath = Path("./temp-downloads/") #path to temp files
     if not downloadsFolderPath.is_dir():
@@ -17,4 +17,4 @@ def download_raw_audio(url: str):
     if downloadedFilePath: 
         print("INFO: m4a downloaded.")
 
-    return downloadedFilePath
+    return downloadedFilePath #returns full path in str #TODO: change to a local Path
