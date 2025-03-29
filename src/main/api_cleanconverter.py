@@ -3,7 +3,7 @@ from fastapi.responses import FileResponse
 
 from src.middleware.conversion import convert_to_mp3
 from src.services.youtubeDownloaders import download_raw_audio
-from src.main.background import accountForUsage
+from src.main.fileCount_management import account_for_usage
 
 app = FastAPI(version="0.1", title="Clean Converter API",
               description="Mp3 downloader only, for now.")
@@ -17,11 +17,11 @@ async def get_video_in_mp3(url: str, background: BackgroundTasks):
     locationMp3 = convert_to_mp3(downloadOutputPath)
 
     #get Filename from conversion
-    filenameMp3 = str(locationMp3.stem) + ".mp3"
+    filenameMp3 = str(locationMp3.name)
 
     # success
     if locationMp3:
-        background.add_task(accountForUsage, [downloadOutputPath, locationMp3]) #deleting used files
+        background.add_task(account_for_usage, [downloadOutputPath, locationMp3]) #deleting used files
         return FileResponse(
             filename=filenameMp3,
             path=locationMp3,
