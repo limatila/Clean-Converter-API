@@ -10,7 +10,7 @@ app = FastAPI(version="0.1", title="Clean Converter API",
               description="Mp3 downloader only, for now.")
 
 @app.get(f"/v{app.version}" + "/download/mp3/")
-async def get_in_mp3(url: str, background: BackgroundTasks):
+def get_in_mp3(url: str, background: BackgroundTasks):
     #for youtube urls: #? other may be added for other sources
     inputValidation.verify_youtube_url(url) 
 
@@ -37,4 +37,4 @@ async def get_in_mp3(url: str, background: BackgroundTasks):
             }
         )
     else:
-        return HTTPException(status_code=500, detail="Could not resolve video conversion.")
+        raise HTTPException(status_code=500, detail="Could not resolve video conversion.")

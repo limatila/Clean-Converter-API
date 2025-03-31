@@ -1,8 +1,8 @@
 1. try refactor conversion subprocess into ffmpeg-python libr usage - DONE
 2. check if there's already a file converted to be delivered - DONE
 3. delete file after delivery - DONE
-4. add concurrency management to multiple requests with minimal lag #! beware with file concurrency
-5. add additional url validation steps in api calls, and more validations troughout code
+4. add concurrency management to multiple requests with minimal lag #! beware with file concurrency - DONE, not tested (will do with locust)
+5. add additional url validation steps in api calls, and more validations troughout code - DONE
 
 Later:
 6. DEPLOY in cloud
