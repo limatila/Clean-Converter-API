@@ -7,8 +7,7 @@ USAGE_REG_FILENAME = "usage-reg.json"
 USAGE_REG_INDENT = 2
 USAGE_REG_EXECUTIONS_KEY = "executedTimes"
 
-
-#on start, gen usage_reg
+#On Start, generate usage_reg
 try:
     with open(USAGE_REG_FILENAME, 'r') as usage_json:
         usage_reg: dict[str, int] = load(usage_json)
@@ -17,7 +16,7 @@ except FileNotFoundError:
         usage_reg: dict[str, int] = {}
         dump(usage_reg, usage_json, indent=USAGE_REG_INDENT)
 
-#also, gen count of total executions on registry...
+#also, gen count of total executions (var and file)
 try:
     totalExecutionCount: int = usage_reg[ USAGE_REG_EXECUTIONS_KEY ]
 except KeyError:
@@ -56,7 +55,8 @@ def update_usage_registry(entry: dict[str, int]):
     usage_reg.update(entry)
     with open(USAGE_REG_FILENAME, 'w') as usage_json: #also update it
         dump(usage_reg, usage_json, indent=USAGE_REG_INDENT)
-        
+
+#* Usage behavior logic
 def account_for_usage(files_paths: list[Path]):
     global totalExecutionCount, usage_reg
 
@@ -80,6 +80,7 @@ def account_for_usage(files_paths: list[Path]):
     totalExecutionCount += 1
     update_usage_registry({USAGE_REG_EXECUTIONS_KEY: totalExecutionCount})
     
+    #? should i refactor this?
     # call delete_stored_files() if file is not so much used, every 20th request (max 20x +-10MB music)
     if ( (totalExecutionCount % 20) == 0 and totalExecutionCount != 0 ):
         for name in usage_reg:
