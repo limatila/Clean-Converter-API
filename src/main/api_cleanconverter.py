@@ -9,7 +9,10 @@ app = FastAPI(version="0.1", title="Clean Converter API",
               description="Mp3 downloader only, for now.")
 
 @app.get(f"/v{app.version}" + "/download/mp3/")
-async def get_video_in_mp3(url: str, background: BackgroundTasks):
+async def get_in_mp3(url: str, background: BackgroundTasks):
+    #for youtube urls: #? other may be added for other sources
+    input_validation.verify_youtube_url(url) 
+
     #Download
     downloadOutputPath = download_raw_audio(url)
 
