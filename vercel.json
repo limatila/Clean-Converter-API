@@ -1,0 +1,14 @@
+{
+  "builds": [
+    {
+    "src": "src/main/api_cleanconverter.py",
+    "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+    "src": "/(.*)",
+    "dest": "src/main/api_cleanconverter.py"
+    }
+  ]
+}
