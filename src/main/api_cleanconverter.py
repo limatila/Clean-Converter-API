@@ -7,7 +7,7 @@ from src.services.youtubeDownloaders import download_raw_audio
 from src.main.fileCount_management import account_for_usage
 
 app = FastAPI(version="0.1", title="Clean Converter API",
-              description="Mp3 downloader only, for now.")
+              description="An API for automatic download and conversion of Youtube videos. Mp3 downloader only, for now.")
 
 @app.get(f"/v{app.version}" + "/download/mp3/")
 def get_in_mp3(url: str, background: BackgroundTasks):

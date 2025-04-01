@@ -1,0 +1,11 @@
+venv
+*.venv.*
+.pytest_cache
+__pycache__
+
+temp-downloads
+temp-converted
+src/logs
+usage-reg.json
+
+up-server.ps1

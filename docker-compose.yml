@@ -1,0 +1,15 @@
+services:
+  backend:
+    container_name: api
+    restart: always
+    build: .
+    ports:
+      - "55002:8080" # 55002 to access
+    volumes: 
+      - .:/app
+    command: sh -c "uvicorn src.main.api_cleanconverter:app --host 0.0.0.0 --port 8080 --reload"
+  
+  # frontent here
+
+volumes: 
+  cleanconverter_data:

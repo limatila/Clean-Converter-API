@@ -1,0 +1,1 @@
+docker compose -p "clean-converter" up -d
