@@ -9,6 +9,6 @@ RUN apt-get update && apt-get install -y git
 
 WORKDIR /app
 
-RUN git clone https://github.com/limatila/clean-converter-api .
+RUN git clone https://github.com/limatila/clean-converter-api /app
 
 RUN pip install --no-cache-dir -r requirements.txt
