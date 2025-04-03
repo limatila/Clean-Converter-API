@@ -7,7 +7,7 @@ from fastapi import HTTPException
 
 def download_raw_audio(url: str) -> Path:
     try:
-        yt_Client = YouTube(url, 'ANDROID_VR', on_progress_callback=on_progress)
+        yt_Client = YouTube(url, 'WEB', on_progress_callback=on_progress)
     except RegexMatchError:
         raise HTTPException(status_code=400, detail={
             "error": "the video url is invalid, please copy a proper video url from youtube client",
