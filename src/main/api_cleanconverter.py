@@ -17,20 +17,19 @@ def get_in_mp3(url: str, background: BackgroundTasks):
     #Download
     downloadOutputPath = download_raw_audio(url)
 
-    #Convert
-    locationMp3 = convert_to_mp3(downloadOutputPath)
-
-    #get Filename from conversion
-    filenameMp3 = str(locationMp3.name)
+    #Old
+    # locationMp3 = convert_to_mp3(downloadOutputPath)
+    # filenameMp3 = str(locationMp3.name)
 
     # success
-    if locationMp3:
+    if downloadOutputPath:
+        filenameMp3 = downloadOutputPath.name
         #file usage management
-        background.add_task(account_for_usage, [downloadOutputPath, locationMp3])
+        background.add_task(account_for_usage, [downloadOutputPath, downloadOutputPath])
 
         return FileResponse(
             filename=filenameMp3,
-            path=locationMp3,
+            path=downloadOutputPath,
             media_type="audio/mpeg",
             headers={
                 "result": "Video has been successfully delivered with .mp3"

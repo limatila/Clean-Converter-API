@@ -1,4 +1,4 @@
-pytubefix
+yt-dlp
 ffmpeg-python #? ffmpeg in machine PATH 
 fastapi
 uvicorn
