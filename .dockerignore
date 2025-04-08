@@ -4,7 +4,6 @@ venv
 __pycache__
 
 temp-downloads
-temp-converted
 src/logs
 usage-reg.json
 

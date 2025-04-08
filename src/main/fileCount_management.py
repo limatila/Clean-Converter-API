@@ -6,6 +6,7 @@ from pathlib import Path
 USAGE_REG_FILENAME = "usage-reg.json"
 USAGE_REG_INDENT = 2
 USAGE_REG_EXECUTIONS_KEY = "executedTimes"
+DEFAULT_FILE_EXTENSION = ".mp3"
 
 #On Start, generate usage_reg
 try:
@@ -27,22 +28,17 @@ except KeyError:
 
 
 #* Management functions
-def delete_stored_files(filename: str, fileExtension: str, converted: bool = True):
-    toDelete: list[Path] = []
-    defaultFileExtension_downloads = ".m4a"
+def delete_stored_files(filename: str, fileExtension: str):
+    if not fileExtension:
+        fileExtension = DEFAULT_FILE_EXTENSION
 
     #getting and checking files
     #TODO: log assertion errors
-    file_downloaded: Path = Path("./temp-downloads") / (filename + defaultFileExtension_downloads)
-    toDelete.append(file_downloaded)
+    file_downloaded: Path = Path("./temp-downloads") / (filename + fileExtension)
 
-    if converted: #False if you don't want to delete the .mp3 converted file
-        file_converted: Path = Path("./temp-converted") / (filename + fileExtension)
-        toDelete.append(file_converted)
+    #deleting mp3
+    file_downloaded.unlink(missing_ok=True)   #TODO: log FileNotFound error
 
-    #deleting them
-    for file in toDelete:
-        file.unlink(missing_ok=True)   #TODO: log FileNotFound error
     #resetting count on file
     update_usage_registry({filename: 0})
 
@@ -57,12 +53,12 @@ def update_usage_registry(entry: dict[str, int]):
         dump(usage_reg, usage_json, indent=USAGE_REG_INDENT)
 
 #* Usage behavior logic
-def account_for_usage(files_paths: list[Path]):
+def account_for_usage(files_path: Path):
     global totalExecutionCount, usage_reg
 
-    file_downloaded, file_converted = files_paths
-    filename = str(file_converted.stem)
-    fileExtension = str(file_converted.suffix)
+    file_downloaded = files_path
+    filename = str(file_downloaded.stem)
+    fileExtension = str(file_downloaded.suffix)
 
     # add count to entry #? should do this on if/else ?
     try:

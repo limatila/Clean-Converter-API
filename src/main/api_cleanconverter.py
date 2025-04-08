@@ -2,14 +2,16 @@ from fastapi import FastAPI, HTTPException, BackgroundTasks
 from fastapi.responses import FileResponse
 
 from src.services import inputValidation
-from src.services.conversion import convert_to_mp3
 from src.services.youtubeDownloaders import download_mp3
 from src.main.fileCount_management import account_for_usage
 
 app = FastAPI(version="1", title="Clean Converter API",
-              description="An API for automatic download and conversion of Youtube videos. Mp3 downloader only, for now.")
+              description=(
+                    "## An API for automatic download and conversion of Youtube videos.\n Mp3 downloader only, for now.\n" +
+                    "## NOTE:\n you should note that this API doesn't have a HTTPS certificate, but use it in mind that IT SHOULD ONLY download MP3 files.") 
+             )
 
-@app.get(f"/v{app.version}" + "/download/mp3/")
+@app.get(f"/v{app.version}" + "/download/mp3/", description="Downloads given URL's audio, in browser. Just put a video url in the input to download it (ETA: 20s)")
 def get_in_mp3(url: str, background: BackgroundTasks):
     #for youtube urls: #? other may be added for other sources
     inputValidation.verify_youtube_url(url) 
@@ -17,15 +19,11 @@ def get_in_mp3(url: str, background: BackgroundTasks):
     #Download
     downloadOutputPath = download_mp3(url)
 
-    #Old
-    # locationMp3 = convert_to_mp3(downloadOutputPath)
-    # filenameMp3 = str(locationMp3.name)
-
     # success
     if downloadOutputPath:
         filenameMp3 = downloadOutputPath.name
         #file usage management
-        background.add_task(account_for_usage, [downloadOutputPath, downloadOutputPath])
+        background.add_task(account_for_usage, downloadOutputPath)
 
         return FileResponse(
             filename=filenameMp3,
