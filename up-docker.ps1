@@ -1,1 +1,1 @@
-docker compose -p "clean-converter" up -d
+docker compose -p "youtube-clean-converter" up -d

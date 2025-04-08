@@ -1,4 +1,4 @@
-FROM python:3.11
+FROM python:3.12-slim
 
 RUN apt-get update && \
     apt-get install -y ffmpeg && \
@@ -9,6 +9,6 @@ RUN apt-get update && apt-get install -y git
 
 WORKDIR /app
 
-RUN git clone https://github.com/limatila/clean-converter-api /app
+RUN git clone https://github.com/limatila/Youtube-Clean-Converter /app
 
 RUN pip install --no-cache-dir -r requirements.txt

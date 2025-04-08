@@ -1,14 +1,14 @@
 # up server in background
-nohup uvicorn src.main.api_cleanconverter:app --host 0.0.0.0 --port 55002 --reload > ../uvicornCleanConverter.log 2>&1 &
+nohup uvicorn src.main.api_youtubeconverter:app --host 0.0.0.0 --port 55002 --reload > ../uvicornCleanConverter.log 2>&1 &
 
 # read logs
 tail ../uvicornCleanConverter.log
 
-#kill server
+# kill server
 ps aux | grep uvicorn
 kill 'PID' (2th column)
 
 
-#appliaction should be in:
+# Application should be in:
 http://ec2-56-228-21-162.eu-north-1.compute.amazonaws.com:55002/docs#/
-http://ec2-56-228-21-162.eu-north-1.compute.amazonaws.com:55002/v1/download/mp3?url='your_url'
+http://ec2-56-228-21-162.eu-north-1.compute.amazonaws.com:55002/v1.1/download/mp3?url='your_url'

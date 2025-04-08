@@ -1,1 +1,1 @@
-uvicorn src.main.api_cleanconverter:app --host 127.0.0.1 --port 55002 --reload
+uvicorn src.main.api_youtubeconverter:app --host 0.0.0.0 --port 55002 --reload

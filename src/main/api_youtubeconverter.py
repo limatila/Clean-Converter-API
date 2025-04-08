@@ -5,7 +5,7 @@ from src.services import inputValidation
 from src.services.youtubeDownloaders import download_mp3
 from src.main.fileCount_management import account_for_usage
 
-app = FastAPI(version="1", title="Clean Converter API",
+app = FastAPI(version="1.1", title="Youtube Clean Converter",
               description=(
                     "## An API for automatic download and conversion of Youtube videos.\n Mp3 downloader only, for now.\n" +
                     "## NOTE:\n you should note that this API doesn't have a HTTPS certificate, but use it in mind that IT SHOULD ONLY download MP3 files.") 
