@@ -11,11 +11,12 @@ def download_mp3(url: str) -> Path:
         downloadsFolderPath.mkdir()
 
     download_args: list = [
-        "yt-dlp",                                 #downloader
+        "yt-dlp",                                   #downloader
         "-x",                                       #only audio
-        "--audio-format=mp3",                       #audio format
-        f"-P \"./{str(downloadsFolderPath)}/\"",       #path to download
-        "-o %(title)s", #template for filename
+        "--audio-format mp3",                       #audio format
+        f"-P \"./{str(downloadsFolderPath)}/\"",    #path to download
+        "-o %(title)s",                             #template for filename
+        "--cookies cookies.txt",                #use cookies for yt auth
         url                                         #url by client
     ]
 
