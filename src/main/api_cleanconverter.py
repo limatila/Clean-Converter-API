@@ -3,7 +3,7 @@ from fastapi.responses import FileResponse
 
 from src.services import inputValidation
 from src.services.conversion import convert_to_mp3
-from src.services.youtubeDownloaders import download_raw_audio
+from src.services.youtubeDownloaders import download_mp3
 from src.main.fileCount_management import account_for_usage
 
 app = FastAPI(version="0.1", title="Clean Converter API",
@@ -15,7 +15,7 @@ def get_in_mp3(url: str, background: BackgroundTasks):
     inputValidation.verify_youtube_url(url) 
 
     #Download
-    downloadOutputPath = download_raw_audio(url)
+    downloadOutputPath = download_mp3(url)
 
     #Old
     # locationMp3 = convert_to_mp3(downloadOutputPath)
