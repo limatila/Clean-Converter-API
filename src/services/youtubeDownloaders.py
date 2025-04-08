@@ -7,7 +7,7 @@ def download_mp3(url: str) -> Path:
 
     ydl_opts = {
         'format': 'bestaudio/best',
-        'outtmpl': str(downloads_folder_path / '%(title)s.%(ext)s'),
+        'outtmpl': str(downloads_folder_path / '%(title)s'),
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
