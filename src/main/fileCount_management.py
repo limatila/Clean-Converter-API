@@ -1,19 +1,19 @@
 # For FastAPI BackgroundTasks: 'from fastapi import BackgroundTasks'
-from json import load, dump
+from json import load, dump, JSONDecodeError
 from pathlib import Path
 
 #Constants
-USAGE_REG_FILENAME = "usage-reg.json"
+USAGE_REG_PATH = "./src/logs/usage-reg.json"
 USAGE_REG_INDENT = 2
 USAGE_REG_EXECUTIONS_KEY = "executedTimes"
 DEFAULT_FILE_EXTENSION = ".mp3"
 
 #On Start, generate usage_reg
 try:
-    with open(USAGE_REG_FILENAME, 'r') as usage_json:
+    with open(USAGE_REG_PATH, 'r') as usage_json:
         usage_reg: dict[str, int] = load(usage_json)
-except FileNotFoundError:
-    with open(USAGE_REG_FILENAME, 'w') as usage_json:
+except (FileNotFoundError, JSONDecodeError):
+    with open(USAGE_REG_PATH, 'w') as usage_json:
         usage_reg: dict[str, int] = {}
         dump(usage_reg, usage_json, indent=USAGE_REG_INDENT)
 
@@ -21,7 +21,7 @@ except FileNotFoundError:
 try:
     totalExecutionCount: int = usage_reg[ USAGE_REG_EXECUTIONS_KEY ]
 except KeyError:
-    with open(USAGE_REG_FILENAME, 'w') as usage_json: #also update it
+    with open(USAGE_REG_PATH, 'w') as usage_json: #also update it
         usage_reg.update({USAGE_REG_EXECUTIONS_KEY: 0})
         dump(usage_reg, usage_json, indent=USAGE_REG_INDENT)
     totalExecutionCount: int = 0
@@ -49,14 +49,14 @@ def update_usage_registry(entry: dict[str, int]):
         entry (dict[str, int]): a dict with 'filename' or 'USAGE_REG_EXECUTIONS_KEY' as key, and a number on its value
     """
     usage_reg.update(entry)
-    with open(USAGE_REG_FILENAME, 'w') as usage_json: #also update it
+    with open(USAGE_REG_PATH, 'w') as usage_json: #also update it
         dump(usage_reg, usage_json, indent=USAGE_REG_INDENT)
 
 #* Usage behavior logic
-def account_for_usage(files_path: Path):
+def account_for_usage(file_path: Path):
     global totalExecutionCount, usage_reg
 
-    file_downloaded = files_path
+    file_downloaded = file_path
     filename = str(file_downloaded.stem)
     fileExtension = str(file_downloaded.suffix)
 
