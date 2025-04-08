@@ -11,4 +11,4 @@ kill 'PID' (2th column)
 
 #appliaction should be in:
 http://ec2-56-228-21-162.eu-north-1.compute.amazonaws.com:55002/docs#/
-http://ec2-56-228-21-162.eu-north-1.compute.amazonaws.com:55002/v0.1/download/mp3?url='your_url'
+http://ec2-56-228-21-162.eu-north-1.compute.amazonaws.com:55002/v1/download/mp3?url='your_url'

@@ -6,7 +6,7 @@ from src.services.conversion import convert_to_mp3
 from src.services.youtubeDownloaders import download_mp3
 from src.main.fileCount_management import account_for_usage
 
-app = FastAPI(version="0.1", title="Clean Converter API",
+app = FastAPI(version="1", title="Clean Converter API",
               description="An API for automatic download and conversion of Youtube videos. Mp3 downloader only, for now.")
 
 @app.get(f"/v{app.version}" + "/download/mp3/")
