@@ -1,37 +1,26 @@
-import subprocess
+from yt_dlp import YoutubeDL
 from pathlib import Path
 
-from yt_dlp import YoutubeDL
-from fastapi import HTTPException
-
 def download_mp3(url: str) -> Path:
-    downloadsFolderPath = Path("./temp-downloads")
+    downloads_folder_path = Path("./temp-downloads")
+    downloads_folder_path.mkdir(exist_ok=True)
 
-    if not downloadsFolderPath.is_dir():
-        downloadsFolderPath.mkdir()
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'outtmpl': str(downloads_folder_path / '%(title)s.%(ext)s'),
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],
+        'cookiefile': 'cookies.txt',  # Path to your cookies file
+    }
 
-    download_args: list = [
-        "yt-dlp",                                   #downloader
-        "-x",                                       #only audio
-        "--audio-format mp3",                       #audio format
-        f"-P \"./{str(downloadsFolderPath)}/\"",    #path to download
-        "-o %(title)s",                             #template for filename
-        "--cookies cookies.txt",                #use cookies for yt auth
-        url                                         #url by client
-    ]
-
-    #if already existant download:
-    with YoutubeDL() as ydl:
-        videoInfo: dict = ydl.extract_info(url, download=False)
-    # existantFilePath = downloadsFolderPath / (videoInfo['title'] + f" [{ videoInfo['id'] }]" + ".mp3")
-    existantFilePath = downloadsFolderPath / (videoInfo['title'] + ".mp3")
-    if existantFilePath.exists():
-        print("INFO: video is already downloaded, proceeding... ")
-        return existantFilePath
-    else:
-        subprocess.call(" ".join(download_args))
+    with YoutubeDL(ydl_opts) as ydl:
+        video = ydl.extract_info(url, download=True)
+        file_path = Path(ydl.prepare_filename(video)).with_suffix('.mp3')
 
     #sucess 
     #BUG: some characters in video titles are bugged out when downloading, like ':', so it will return a RuntimeError
-    return existantFilePath #returns full path in str #TODO: change to a local Path
+    return file_path #returns full path in str #TODO: change to a local Path
     
