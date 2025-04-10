@@ -5,12 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "FastAPI: CleanConverterAPI",
+            "name": "FastAPI: YCC Api",
             "type": "debugpy",
             "request": "launch",
             "module": "uvicorn",
             "args": [
-                "src.main.api_cleanconverter:app",
+                "src.main.api_youtubeconverter:app",
                 "--host=127.0.0.1",
                 "--port=55002",
                 "--reload"
