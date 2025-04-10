@@ -1,7 +1,7 @@
 from yt_dlp import YoutubeDL
 from pathlib import Path
 
-from src.services.cookieValidation import validate_cookies
+from src.services.validators.cookieValidation import validate_cookies
 
 def download_mp3(url: str) -> Path:
     downloads_folder_path = Path("./temp-downloads")

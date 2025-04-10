@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException, BackgroundTasks
 from fastapi.responses import FileResponse
 
-from src.services import inputValidation
-from src.services.cookieValidation import validate_cookies
+from src.services.validators import inputValidation
+from src.services.validators.cookieValidation import validate_cookies
 from src.services.youtubeDownloaders import download_mp3
 from src.main.fileCount_management import account_for_usage
 
