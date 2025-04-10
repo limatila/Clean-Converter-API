@@ -5,4 +5,5 @@ __pycache__
 temp-downloads
 src/logs
 usage-reg.json
-**/cookies.txt
+**cookies*.txt
+**backup**

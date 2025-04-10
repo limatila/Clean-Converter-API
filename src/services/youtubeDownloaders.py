@@ -14,6 +14,8 @@ def download_mp3(url: str) -> Path:
             'preferredquality': '192',
         }],
         'cookiefile': 'cookies.txt',  # Path to your cookies file
+        'no_write_cookies': True,
+        'noplaylist': True,
     }
 
     with YoutubeDL(ydl_opts) as ydl:
