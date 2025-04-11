@@ -37,3 +37,8 @@ def get_in_mp3(url: str, background: BackgroundTasks):
         )
     else:
         raise HTTPException(status_code=500, detail="Could not resolve video conversion.")
+
+
+# startup
+if __name__ == "__main__":
+    validate_cookies()

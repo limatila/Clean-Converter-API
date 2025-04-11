@@ -2,11 +2,12 @@
 from json import load, dump, JSONDecodeError
 from pathlib import Path
 
-#Constants
-USAGE_REG_PATH = "./src/logs/usage-reg.json"
-USAGE_REG_INDENT = 2
-USAGE_REG_EXECUTIONS_KEY = "executedTimes"
-DEFAULT_FILE_EXTENSION = ".mp3"
+from src.config import (
+    USAGE_REG_PATH, 
+    USAGE_REG_INDENT,
+    USAGE_REG_EXECUTIONS_KEY, 
+    DEFAULT_FILE_EXTENSION
+)
 
 #On Start, generate usage_reg
 try:
@@ -28,10 +29,7 @@ except KeyError:
 
 
 #* Management functions
-def delete_stored_files(filename: str, fileExtension: str):
-    if not fileExtension:
-        fileExtension = DEFAULT_FILE_EXTENSION
-
+def delete_stored_files(filename: str, fileExtension: str = DEFAULT_FILE_EXTENSION):
     #getting and checking files
     #TODO: log assertion errors
     file_downloaded: Path = Path("./temp-downloads") / (filename + fileExtension)
@@ -67,7 +65,7 @@ def account_for_usage(file_path: Path):
         usage_reg.update({str(filename): 0}) #starts at 0 usage
         countFileUsage: int = usage_reg[ filename ]
     
-    countFileUsage += 1     #TODO: this cant be permanent. Must account for days since last usage
+    countFileUsage += 1    #! This cant be permanent. Must account for days since last usage
 
     # add entry update to usage_reg
     update_usage_registry({filename: countFileUsage})

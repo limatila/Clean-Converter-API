@@ -3,30 +3,22 @@ from pathlib import Path
 
 from src.services.validators.cookieValidation import validate_cookies
 
+from src.config import YDL_OPTS
+from src.config import DOWNLOADS_FOLDER_PATH
+
+DOWNLOADS_FOLDER_PATH.mkdir(exist_ok=True)
+
+
+#*- to mp3
 def download_mp3(url: str) -> Path:
-    downloads_folder_path = Path("./temp-downloads")
-    downloads_folder_path.mkdir(exist_ok=True)
-
-    ydl_opts = {
-        'format': 'mp3/bestaudio/best',
-        'outtmpl': str(downloads_folder_path / '%(title)s'),
-        'postprocessors': [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
-            'preferredquality': '192',
-        }],
-        'cookiefile': 'cookies.txt',  # Path to your cookies file
-        'no_write_cookies': True,
-        'noplaylist': True,
-    }
-
-    with YoutubeDL(ydl_opts) as ydl:
+    with YoutubeDL(YDL_OPTS) as ydl:
         video = ydl.extract_info(url, download=True)
         file_path = Path(ydl.prepare_filename(video)).with_suffix('.mp3')
 
-    validate_cookies() #Check at least once, will be checked later also.
+    validate_cookies() #? later add this as a decorator
 
     #sucess 
     #BUG: some characters in video titles are bugged out when downloading, like ':', so it will return a RuntimeError
-    return file_path #returns full path in str #TODO: change to a local Path
+    return file_path #returns full path in str
     
+#*- in mp4
