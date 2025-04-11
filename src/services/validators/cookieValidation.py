@@ -1,9 +1,10 @@
 
 # functions that check cookie usage, as requests are added
 
-#Constants
-COOKIES_FILE_PATH = "cookies.txt"
-COOKIES_BACKUP_FILE_PATH = "backup-cookies.txt"
+from src.config import (
+    COOKIES_FILE_PATH, 
+    COOKIES_BACKUP_FILE_PATH
+)
 
 #should run one per request, to be correctly used
 def update_cookies():
