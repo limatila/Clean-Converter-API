@@ -1,3 +1,4 @@
+# For AWS: upping service to WAN acess
 # up server in background
 nohup uvicorn src.main.api_youtubeconverter:app --host 0.0.0.0 --port 55002 --reload > ../uvicornCleanConverter.log 2>&1 &
 
@@ -8,7 +9,7 @@ tail ../uvicornCleanConverter.log
 ps aux | grep uvicorn
 kill 'PID' (2th column)
 
-
-# Application should be in:
-http://ec2-56-228-21-162.eu-north-1.compute.amazonaws.com:55002/docs#/
-http://ec2-56-228-21-162.eu-north-1.compute.amazonaws.com:55002/v1.1/download/mp3?url='your_url'
+-------
+# After cloud deploy, application should be in:
+http://your-public-ipv4-url:55002/docs#/
+http://your-public-ipv4-url:55002/v1.1/download/mp3?url='your_url'
