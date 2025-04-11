@@ -3,9 +3,13 @@
 
 from fastapi import HTTPException
 
+URL_PATTERNS = [
+    "youtube.com/watch?v=", 
+    "youtu.be/"
+]
+
 def verify_youtube_url(url: str) -> HTTPException | None:
-    if not ("youtube.com/watch?v=" in url
-            or "youtu.be/" in url):
+    if not url in URL_PATTERNS:
         raise HTTPException(status_code=400, detail={
                 "error": "youtube video could not be resolved, please insert a valid youtube video url.",
                 "example": "https://youtube.com/watch?v=\'random string here\'"
