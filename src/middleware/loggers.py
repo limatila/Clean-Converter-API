@@ -22,6 +22,7 @@ def _initLoggers(): #? could make this a more simple dynamic function
 
     for logger in [performanceLogger, cookiesLogger, fileUsageLogger]:
         logger.handlers.clear()
+        logger.propagate = False
 
     #configuring Performance logger: file + stream
     performance_FileHandler = FileHandler(perfPath)
@@ -42,7 +43,7 @@ def _initLoggers(): #? could make this a more simple dynamic function
     cookiesLogger.addHandler(cookies_FileHandler)
 
     #configuring File Usage logger: file + stream
-    fileUsage_FileHandler = FileHandler(perfPath)
+    fileUsage_FileHandler = FileHandler(fileUsagePath)
     fileUsage_FileHandler.setLevel(logging.INFO)
     fileUsage_FileHandler.setFormatter(Formatter(defaultFormatter))
     fileUsage_StreamHandler = StreamHandler()
@@ -82,5 +83,8 @@ if __name__ == "__main__":
     performanceLogger.debug("TESTING performance debug") #will not be logged
     performanceLogger.info("TESTING performance info")
     #* file usage limited level: file/INFO, stream/DEBUG
-    performanceLogger.debug("TESTING file usage debug") #only to stream
-    performanceLogger.info("TESTING file usage info")   #to file and stream
+    fileUsageLogger.debug("TESTING file usage debug") #only to stream
+    fileUsageLogger.info("TESTING file usage info")   #to file and stream
+
+    for logger in [performanceLogger, cookiesLogger, fileUsageLogger]:
+        print(logger.handlers)
