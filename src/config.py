@@ -33,10 +33,8 @@ DEFAULT_FILE_EXTENSION = ".mp3"
 
 
 #* Logger configuration (paths and formats)
-from logging import Formatter
-
 BASE_LOGS_PATH: str = "./src/logs/"
-defaultFormatter = Formatter(fmt='%(asctime)s - %(levelname)s - %(message)s')
+defaultFormatter = '#API_LOG > %(asctime)s - %(levelname)s - %(message)s'
 
 #DateTime configs
 defaultTimezone = "-03:00"
