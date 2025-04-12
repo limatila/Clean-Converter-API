@@ -11,6 +11,7 @@ from src.config import (
     DOWNLOADS_FOLDER_PATH,
     COMPRESSION_FOLDER_PATH,
 )
+from src.middleware.loggers import fileUsageLogger
 
 #On Start, generate usage_reg
 try:
@@ -39,17 +40,21 @@ def delete_stored_files(filename: str, fileExtension: str = DEFAULT_FILE_EXTENSI
     file_downloaded: Path = DOWNLOADS_FOLDER_PATH / (filename + fileExtension)
     if file_downloaded.exists(): toDelete.append(file_downloaded)
     
-    file_compressed: Path = COMPRESSION_FOLDER_PATH / (filename + fileExtension)
+    file_compressed: Path = COMPRESSION_FOLDER_PATH / (filename + compressedExtension)
     if file_compressed.exists(): toDelete.append(file_compressed)
 
     #deleting mp3
     for file in toDelete:
-        file.unlink(missing_ok=True)   #TODO: log FileNotFound error
+        try:
+            file.unlink()
+        except FileNotFoundError:
+            fileUsageLogger.warning(f"File Usage Management > file was not found at deletion point: {file}") 
+        finally: continue
 
     #resetting count on file
     update_usage_registry({filename: 0})
 
-    #TODO: log delete process sucess
+    fileUsageLogger.info(f"File Usage Management > audio files was deleted and couu for: {filename}")
 
 def update_usage_registry(entry: dict[str, int]):
     """Function to update var 'usage_reg' & file on path 'USAGE_REG_FILENAME' 
