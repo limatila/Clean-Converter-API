@@ -9,8 +9,11 @@ URL_PATTERNS = [
 ]
 
 def verify_youtube_url(url: str) -> HTTPException | None:
-    if not url in URL_PATTERNS:
-        raise HTTPException(status_code=400, detail={
-                "error": "youtube video could not be resolved, please insert a valid youtube video url.",
-                "example": "https://youtube.com/watch?v=\'random string here\'"
-            })
+    for pattern in URL_PATTERNS:
+        if pattern in url:
+            return None
+    
+    raise HTTPException(status_code=400, detail={
+            "error": "youtube video could not be resolved, please insert a valid youtube video url.",
+            "example": "https://youtube.com/watch?v=\'random string here\'"
+        })
