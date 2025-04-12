@@ -17,6 +17,8 @@ def download_mp3(url: str) -> Path:
 
     validate_cookies() #? later add this as a decorator
 
+    validate_cookies() #? later add this as a decorator
+
     #sucess 
     #BUG: some characters in video titles are bugged out when downloading, like ':', so it will return a RuntimeError
     assert file_path.exists() #! need testing

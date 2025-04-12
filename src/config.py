@@ -1,4 +1,5 @@
-#Configurations for the project (mainly: names and paths)
+
+#* Configurations for the project (mainly: names and paths)
 
 from pathlib import Path
 
@@ -37,3 +38,11 @@ USAGE_REG_INDENT = 2
 USAGE_REG_EXECUTIONS_KEY = "executedTimes"
 DEFAULT_FILE_EXTENSION = ".mp3"
 DEFAULT_COMPRESSION_EXTENSION = '.7z'
+
+#* Logger configuration (paths and formats)
+BASE_LOGS_PATH: str = "./src/logs/"
+defaultFormatter = '#API_LOG > %(asctime)s - %(levelname)s - %(message)s'
+
+#DateTime configs
+defaultTimezone = "-03:00"
+defaultTimeFormat = "%d-%m(%y) %H:%M:%S"
