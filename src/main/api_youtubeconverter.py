@@ -4,6 +4,7 @@ from fastapi.responses import FileResponse
 from src.services.validators import inputValidation
 from src.services.validators.cookieValidation import validate_cookies
 from src.services.youtubeDownloaders import download_mp3
+from src.services.fileCompression import compress_single_file
 from src.main.fileCount_management import account_for_usage
 
 app = FastAPI(version="1.1", title="Youtube Clean Converter",
@@ -20,19 +21,23 @@ def get_in_mp3(url: str, background: BackgroundTasks):
     #Download
     downloadOutputPath = download_mp3(url)
 
+    #Compression
+    compressedOutputPath = compress_single_file(downloadOutputPath)
+
     # success
     if downloadOutputPath:
-        filenameMp3 = downloadOutputPath.name
+        filename = compressedOutputPath.name
         #file usage management
         background.add_task(account_for_usage, downloadOutputPath)
         background.add_task(validate_cookies)
 
         return FileResponse(
-            filename=filenameMp3,
-            path=downloadOutputPath,
-            media_type="audio/mpeg",
+            filename=filename,
+            path=compressedOutputPath,
+            media_type="application/x-7z-compressed",
             headers={
-                "result": "Video has been successfully delivered with .mp3"
+                "result": "Video has been successfully delivered with .mp3, and compressed for delivery.",
+                "hint": "Please extract the .mp3 audio to access your audio"
             }
         )
     else:

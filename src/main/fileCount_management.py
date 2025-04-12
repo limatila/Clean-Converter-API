@@ -6,7 +6,10 @@ from src.config import (
     USAGE_REG_PATH, 
     USAGE_REG_INDENT,
     USAGE_REG_EXECUTIONS_KEY, 
-    DEFAULT_FILE_EXTENSION
+    DEFAULT_FILE_EXTENSION,
+    DEFAULT_COMPRESSION_EXTENSION,
+    DOWNLOADS_FOLDER_PATH,
+    COMPRESSION_FOLDER_PATH,
 )
 
 #On Start, generate usage_reg
@@ -29,16 +32,24 @@ except KeyError:
 
 
 #* Management functions
-def delete_stored_files(filename: str, fileExtension: str = DEFAULT_FILE_EXTENSION):
+def delete_stored_files(filename: str, fileExtension: str = DEFAULT_FILE_EXTENSION, compressedExtension: str = DEFAULT_COMPRESSION_EXTENSION):
+    toDelete: list[Path] = []
+    
     #getting and checking files
-    #TODO: log assertion errors
-    file_downloaded: Path = Path("./temp-downloads") / (filename + fileExtension)
+    file_downloaded: Path = DOWNLOADS_FOLDER_PATH / (filename + fileExtension)
+    if file_downloaded.exists(): toDelete.append(file_downloaded)
+    
+    file_compressed: Path = COMPRESSION_FOLDER_PATH / (filename + fileExtension)
+    if file_compressed.exists(): toDelete.append(file_compressed)
 
     #deleting mp3
-    file_downloaded.unlink(missing_ok=True)   #TODO: log FileNotFound error
+    for file in toDelete:
+        file.unlink(missing_ok=True)   #TODO: log FileNotFound error
 
     #resetting count on file
     update_usage_registry({filename: 0})
+
+    #TODO: log delete process sucess
 
 def update_usage_registry(entry: dict[str, int]):
     """Function to update var 'usage_reg' & file on path 'USAGE_REG_FILENAME' 
@@ -58,7 +69,7 @@ def account_for_usage(file_path: Path):
     filename = str(file_downloaded.stem)
     fileExtension = str(file_downloaded.suffix)
 
-    # add count to entry #? should do this on if/else ?
+    # add count to entry 
     try:
         countFileUsage: int = usage_reg[ filename ]
     except KeyError:

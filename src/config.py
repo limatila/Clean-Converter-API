@@ -6,22 +6,29 @@ from pathlib import Path
 COOKIES_FILE_PATH = "cookies.txt"
 COOKIES_BACKUP_FILE_PATH = "backup-cookies.txt"
 
-#Downloads configuration
+#Download and Compression configuration
 DOWNLOADS_FOLDER_PATH = Path("./temp-downloads")
+COMPRESSION_FOLDER_PATH = Path("./temp-compressions") 
 
-YDL_OPTS: dict[str, any] = {
-        'format': 'bestaudio/best',
-        'outtmpl': str(DOWNLOADS_FOLDER_PATH / '%(title)s'),
-        'postprocessors': [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
-            'preferredquality': '192',
-        }],
-        'cookiefile': COOKIES_FILE_PATH,  # Path to your cookies file
-        'overwrites': False,
-        'noplaylist': True,
-        'age_limit': 20,
-        'wait_for_video': (0, 86400) #For lives that didn't finish (but will), will wait for 24hours for it to finish.
+YDL_OPTS: dict[ str, dict[str, any]] = {
+    #a group of yt-dlp options to be used in downloads methods.
+    #shall be used in 'YoutubeDL(YDL_OPTS['your-option'])'.
+    'SINGLE_MP3': {
+            'format': 'bestaudio/best',
+            'outtmpl': str(DOWNLOADS_FOLDER_PATH / '%(title)s'),
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': 'mp3',
+                'preferredquality': '192',
+            }],
+            'cookiefile': COOKIES_FILE_PATH,  # Path to your cookies file
+            'overwrites': False,
+            'noplaylist': True,
+            'age_limit': 20,
+            'wait_for_video': (0, 86400) #For lives that didn't finish (but will), will wait for 24hours for it to finish.
+    },
+    # 'SINGLE_MP4': 
+    # 'MULTIPLE_MP3': 
 }
 
 #File usage registry
@@ -29,3 +36,4 @@ USAGE_REG_PATH = "./src/logs/usage-reg.json"
 USAGE_REG_INDENT = 2
 USAGE_REG_EXECUTIONS_KEY = "executedTimes"
 DEFAULT_FILE_EXTENSION = ".mp3"
+DEFAULT_COMPRESSION_EXTENSION = '.7z'
