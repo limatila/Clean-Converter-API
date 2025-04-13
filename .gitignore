@@ -3,6 +3,7 @@ venv
 __pycache__
 
 temp-downloads
+temp-compressions
 src/logs
 usage-reg.json
 **cookies*.txt

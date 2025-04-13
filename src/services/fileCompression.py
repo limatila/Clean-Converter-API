@@ -1,7 +1,6 @@
 # File compression scripts, to provide less data usage
 from pathlib import Path
 
-# from archivefile import ArchiveFile
 from py7zr import SevenZipFile as SZip
 
 from src.config import COMPRESSION_FOLDER_PATH, DEFAULT_COMPRESSION_EXTENSION
@@ -21,7 +20,7 @@ def compress_single_file(file_path: Path, compressionExtension: str = DEFAULT_CO
 
     try:
         with SZip(outputZipPath, 'w') as zipfile:
-            zipfile.write(file_path)
+            zipfile.write(file_path, arcname=file_path.name)
         
         assert outputZipPath.exists()
         fileUsageLogger.debug(f"File Compression Service > new file was compressed: {outputZipPath}")
