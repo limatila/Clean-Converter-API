@@ -8,27 +8,35 @@ COOKIES_FILE_PATH = "cookies.txt"
 COOKIES_BACKUP_FILE_PATH = "backup-cookies.txt"
 
 #Download and Compression configuration
-DOWNLOADS_FOLDER_PATH = Path("./temp-downloads")
+DOWNLOADS_FOLDER_PATH_MP3 = Path("./temp-mp3-downloads")
+DOWNLOADS_FOLDER_PATH_MP4 = Path("./temp-mp4-downloads")
 COMPRESSION_FOLDER_PATH = Path("./temp-compressions") 
 
 YDL_OPTS: dict[ str, dict[str, any]] = {
     #a group of yt-dlp options to be used in downloads methods.
     #shall be used in 'YoutubeDL(YDL_OPTS['your-option'])'.
     'SINGLE_MP3': {
-            'format': 'bestaudio/best',
-            'outtmpl': str(DOWNLOADS_FOLDER_PATH / '%(title)s'),
-            'postprocessors': [{
-                'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'mp3',
-                'preferredquality': '192',
-            }],
-            'cookiefile': COOKIES_FILE_PATH,  # Path to your cookies file
-            'overwrites': False,
-            'noplaylist': True,
-            'age_limit': 20,
-            'wait_for_video': (0, 86400) #For lives that didn't finish (but will), will wait for 24hours for it to finish.
+        'format': 'bestaudio/best',
+        'outtmpl': str(DOWNLOADS_FOLDER_PATH_MP3 / '%(title)s.temp'),
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],
+        'cookiefile': COOKIES_FILE_PATH,
+        'noplaylist': True,
+        'age_limit': 20,
+        'wait_for_video': (0, 86400) #For lives that didn't finish (but will), will wait for 24hours for it to finish.
     },
-    # 'SINGLE_MP4': 
+    'SINGLE_MP4': {
+        'format': 'best[ext=mp4]/best',
+        'outtmpl': str(DOWNLOADS_FOLDER_PATH_MP4 / '%(title)s.%(ext)s'),
+        'cookiefile': COOKIES_FILE_PATH,
+        'noplaylist': True,
+        'age_limit': 20,
+        'merge_output_format': 'mp4',
+        'wait_for_video': (0, 86400),
+    }
     # 'MULTIPLE_MP3': 
 }
 

@@ -8,7 +8,7 @@ from src.config import (
     USAGE_REG_EXECUTIONS_KEY, 
     DEFAULT_FILE_EXTENSION,
     DEFAULT_COMPRESSION_EXTENSION,
-    DOWNLOADS_FOLDER_PATH,
+    DOWNLOADS_FOLDER_PATH_MP3,
     COMPRESSION_FOLDER_PATH,
 )
 from src.middleware.loggers import fileUsageLogger
@@ -37,7 +37,7 @@ def delete_stored_files(filename: str, fileExtension: str = DEFAULT_FILE_EXTENSI
     toDelete: list[Path] = []
     
     #getting and checking files
-    file_downloaded: Path = DOWNLOADS_FOLDER_PATH / (filename + fileExtension)
+    file_downloaded: Path = DOWNLOADS_FOLDER_PATH_MP3 / (filename + fileExtension)
     if file_downloaded.exists(): toDelete.append(file_downloaded)
     
     file_compressed: Path = COMPRESSION_FOLDER_PATH / (filename + compressedExtension)
