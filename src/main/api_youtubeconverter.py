@@ -6,7 +6,7 @@ from src.services.validators import inputValidation
 from src.services.validators.cookieValidation import validate_cookies
 from src.services.youtubeDownloaders import download_mp3, download_mp4
 from src.services.fileCompression import compress_single_file
-from src.middleware.fileCount_management import account_for_usage
+from src.services.fileCount_management import account_for_usage
 from src.middleware.loggers import requestsLogger
 
 app = FastAPI (
