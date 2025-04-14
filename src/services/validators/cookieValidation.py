@@ -7,18 +7,31 @@ from src.config import (
 )
 from src.middleware.loggers import cookiesLogger
 
+class CookieNotFound(Exception): #? shall be refactored if any other exceptions are created
+    def __init__(self, message: str):
+        super().__init__(message)
+
 #should run one per request, to be correctly used
 def update_cookies():
-    with open(COOKIES_BACKUP_FILE_PATH, 'r') as backup:
-        with open(COOKIES_FILE_PATH, 'w') as cookies:
-            backupLines = backup.read()
-            cookies.write(backupLines)
-            cookiesLogger.info(f"Changes in {COOKIES_FILE_PATH} detected; Cookiefile was updated with backup.")
-            
+    try:
+        with open(COOKIES_BACKUP_FILE_PATH, 'r') as backup:
+            with open(COOKIES_FILE_PATH, 'w') as cookies:
+                backupLines = backup.read()
+                cookies.write(backupLines)
+                cookiesLogger.info(f"Changes in {COOKIES_FILE_PATH} detected; Cookiefile was updated with backup.")
+    except FileNotFoundError as err:
+        errorMessage = f"Cookiefile was not found in path {err.filename}, and is needed. For info in how to extract cookies, go to \'https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies\'"
+        cookiesLogger.error(errorMessage)
+        raise CookieNotFound(errorMessage)
 
 def validate_cookies():
-    with open(COOKIES_FILE_PATH, 'r') as cookies:
-        with open(COOKIES_BACKUP_FILE_PATH, 'r') as backup:
-            currentLines = cookies.read()
-            backupLines = backup.read()
-            if currentLines != backupLines: update_cookies()
+    try: 
+        with open(COOKIES_FILE_PATH, 'r') as cookies:
+            with open(COOKIES_BACKUP_FILE_PATH, 'r') as backup:
+                currentLines = cookies.read()
+                backupLines = backup.read()
+                if currentLines != backupLines: update_cookies()
+    except FileNotFoundError as err:
+        errorMessage = f"Cookiefile was not found in path {err.filename}, and is needed. For info in how to extract cookies, go to \'https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies\'"
+        cookiesLogger.error(errorMessage)
+        raise CookieNotFound(errorMessage)
