@@ -6,6 +6,7 @@ from src.services.validators.cookieValidation import validate_cookies
 from src.services.youtubeDownloaders import download_mp3, download_mp4
 from src.services.fileCompression import compress_single_file
 from src.middleware.fileCount_management import account_for_usage
+from src.middleware.loggers import requestsLogger
 
 app = FastAPI(version="1.3", title="Youtube Clean Converter",
               description=(
@@ -14,7 +15,8 @@ app = FastAPI(version="1.3", title="Youtube Clean Converter",
              )
 
 @app.get(f"/v{app.version}" + "/download/mp3/", description="Downloads given URL's audio, in browser. Just put a video url in the input to download it (ETA: 20s)")
-def get_in_mp3(url: str, background: BackgroundTasks):
+def get_in_mp3_audio(url: str, background: BackgroundTasks):
+    requestsLogger.info(f"New GET request of /download/mp3 for: {url}")
     #for youtube urls: #? other may be added for other sources
     inputValidation.verify_youtube_url(url) 
 
@@ -41,7 +43,8 @@ def get_in_mp3(url: str, background: BackgroundTasks):
         raise HTTPException(status_code=500, detail="Could not resolve video conversion.")
     
 @app.get(f"/v{app.version}" + "/download/mp4/", description="Downloads given URL's audio, in browser. Just put a video url in the input to download it (ETA: 20s)")
-def get_in_mp4(url: str, background: BackgroundTasks):
+def get_in_mp4_video(url: str, background: BackgroundTasks):
+    requestsLogger.info(f"New GET request of /download/mp4 for: {url}")
     #for youtube urls: #? other may be added for other sources
     inputValidation.verify_youtube_url(url) 
 
@@ -69,6 +72,7 @@ def get_in_mp4(url: str, background: BackgroundTasks):
 
 @app.get(f"/v{app.version}" + "/compressed/mp3/", description="Downloads given URL's audio, in browser. Just put a video url in the input to download it (ETA: 20s)")
 def get_compressed_in_mp3(url: str, background: BackgroundTasks):
+    requestsLogger.info(f"New GET request of /compressed/mp3 for: {url}")
     #for youtube urls: #? other may be added for other sources
     inputValidation.verify_youtube_url(url) 
 
@@ -99,6 +103,7 @@ def get_compressed_in_mp3(url: str, background: BackgroundTasks):
 
 @app.get(f"/v{app.version}" + "/compressed/mp4/", description="Downloads given URL's audio, in browser. Just put a video url in the input to download it (ETA: 20s)")
 def get_compressed_in_mp4(url: str, background: BackgroundTasks):
+    requestsLogger.info(f"New GET request of /compressed/mp4 for: {url}")
     #for youtube urls: #? other may be added for other sources
     inputValidation.verify_youtube_url(url) 
 

@@ -12,6 +12,8 @@ DOWNLOADS_FOLDER_PATH_MP3 = Path("./temp-mp3-downloads")
 DOWNLOADS_FOLDER_PATH_MP4 = Path("./temp-mp4-downloads")
 COMPRESSION_FOLDER_PATH = Path("./temp-compressions") 
 
+QUIET_EXECUTION_OPTION: bool = True #no logs from yt-dlp if True
+
 YDL_OPTS: dict[ str, dict[str, any]] = {
     #a group of yt-dlp options to be used in downloads methods.
     #shall be used in 'YoutubeDL(YDL_OPTS['your-option'])'.
@@ -26,7 +28,8 @@ YDL_OPTS: dict[ str, dict[str, any]] = {
         'cookiefile': COOKIES_FILE_PATH,
         'noplaylist': True,
         'age_limit': 20,
-        'wait_for_video': (0, 86400) #For lives that didn't finish (but will), will wait for 24hours for it to finish.
+        'wait_for_video': (0, 86400), #For lives that didn't finish (but will), will wait for 24hours for it to finish.
+        'quiet': QUIET_EXECUTION_OPTION
     },
     'SINGLE_MP4': {
         'format': 'best[ext=mp4]/best',
@@ -36,6 +39,7 @@ YDL_OPTS: dict[ str, dict[str, any]] = {
         'age_limit': 20,
         'merge_output_format': 'mp4',
         'wait_for_video': (0, 86400),
+        'quiet': QUIET_EXECUTION_OPTION
     }
     # 'MULTIPLE_MP3': 
 }
