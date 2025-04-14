@@ -1,25 +1,53 @@
 
 #* Configurations for the project (mainly: names and paths)
-
 from pathlib import Path
+
+#API names, version, etc..
+API_DETAILS: dict[str, str] = {
+    "version": "v1.3",
+    "name": "Youtube Clean Converter",
+    "summary": "An API for automatic download and conversion of Youtube videos, to Audio (.mp3) or Video (.mp4).",
+    "description_md": (
+        """<br>
+### This is:
+ the documentation page of this API, where you can use/test our services
+## How to use:
+1. Copy a Youtube video link (in Youtube itself) of the video you want to download
+2. Select a service: in '**default**' section, you can use all of the services listed as *GET* methods
+3. Press the '**Try it out**' button to be able to input your URL
+4. Press '**Execute**', and wait for download
+5. You can get your video/audio bellow '*Responses*' section, at a button called '**Download file**'
+
+- *more help?* -> You can check a video that show the usage of this API in the **LINKS** section bellow.
+
+<br>
+- <b>NOTE:</b>
+ you should note that this API doesn't have a HTTPS certificate, but use it in mind that IT SHOULD ONLY download MP3, MP4, and 7z (compressed audio and video) files. Use this as your will.
+
+### **Links:**
+- [The github source code](https://github.com/limatila/Youtube-Clean-Converter) 
+- [A linkedin post that explains how to use the api](https://github.com/limatila/Youtube-Clean-Converter) 
+- [YT-DLP, the tool used to download the videos for this api](https://github.com/yt-dlp/yt-dlp) """
+    )
+}
 
 #Cookies for youtube client
 COOKIES_FILE_PATH = "cookies.txt"
 COOKIES_BACKUP_FILE_PATH = "backup-cookies.txt"
 
 #Download and Compression configuration
-DOWNLOADS_FOLDER_PATH_MP3 = Path("./temp-mp3-downloads")
-DOWNLOADS_FOLDER_PATH_MP4 = Path("./temp-mp4-downloads")
-COMPRESSION_FOLDER_PATH = Path("./temp-compressions") 
+DOWNLOADS_FOLDER_PATH_MP3 = Path("./mp3-downloads")
+DOWNLOADS_FOLDER_PATH_MP4 = Path("./mp4-downloads")
+COMPRESSION_FOLDER_PATH = Path("./file-compressions") 
 
 QUIET_EXECUTION_OPTION: bool = True #no logs from yt-dlp if True
 
-YDL_OPTS: dict[ str, dict[str, any]] = {
+YDL_OPTS: dict[ str, dict[str, any] ] = {
     #a group of yt-dlp options to be used in downloads methods.
     #shall be used in 'YoutubeDL(YDL_OPTS['your-option'])'.
     'SINGLE_MP3': {
         'format': 'bestaudio/best',
-        'outtmpl': str(DOWNLOADS_FOLDER_PATH_MP3 / '%(title)s.temp'),
+        'outtmpl': str(DOWNLOADS_FOLDER_PATH_MP3 / '%(title)s'),
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',

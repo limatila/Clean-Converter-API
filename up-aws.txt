@@ -12,4 +12,4 @@ kill 'PID' (2th column)
 -------
 # After cloud deploy, application should be in:
 http://your-public-ipv4-url:55002/docs#/
-http://your-public-ipv4-url:55002/v1.1/download/mp3?url='your_url'
+http://your-public-ipv4-url:55002/download/mp3?url='your_url'

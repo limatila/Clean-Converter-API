@@ -2,9 +2,9 @@ venv
 .pytest_cache
 __pycache__
 
-temp-mp3-downloads
-temp-mp4-downloads
-temp-compressions
+mp3-downloads
+mp4-downloads
+file-compressions
 src/logs
 usage-reg.json
 **cookies*.txt

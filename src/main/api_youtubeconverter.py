@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, BackgroundTasks
 from fastapi.responses import FileResponse
 
+from src.config import API_DETAILS
 from src.services.validators import inputValidation
 from src.services.validators.cookieValidation import validate_cookies
 from src.services.youtubeDownloaders import download_mp3, download_mp4
@@ -8,13 +9,20 @@ from src.services.fileCompression import compress_single_file
 from src.middleware.fileCount_management import account_for_usage
 from src.middleware.loggers import requestsLogger
 
-app = FastAPI(version="1.3", title="Youtube Clean Converter",
-              description=(
-                    "## An API for automatic download and conversion of Youtube videos.\n Mp3 downloader only, for now.\n" +
-                    "## NOTE:\n you should note that this API doesn't have a HTTPS certificate, but use it in mind that IT SHOULD ONLY download MP3 files."), 
-             )
+app = FastAPI (
+    version=API_DETAILS['version'],
+    title=API_DETAILS['name'],
+    summary=API_DETAILS['summary'],
+    description=API_DETAILS['description_md']
+)
 
-@app.get(f"/v{app.version}" + "/download/mp3/", description="Downloads given URL's audio, in browser. Just put a video url in the input to download it (ETA: 20s)")
+#! mp4 are downloading at 360 30fps maximum!
+mp4_lowQualityMessage_md = """
+<br>
+**NOTE:** video downloads are available only at 360p, 30fps quality.
+"""
+
+@app.get("/download/mp3/", description="Downloads a URL's audio in mp3, in browser. Just put a video url in the input to download it (ETA: 20s)")
 def get_in_mp3_audio(url: str, background: BackgroundTasks):
     requestsLogger.info(f"New GET request of /download/mp3 for: {url}")
     #for youtube urls: #? other may be added for other sources
@@ -42,7 +50,7 @@ def get_in_mp3_audio(url: str, background: BackgroundTasks):
     else:
         raise HTTPException(status_code=500, detail="Could not resolve video conversion.")
     
-@app.get(f"/v{app.version}" + "/download/mp4/", description="Downloads given URL's audio, in browser. Just put a video url in the input to download it (ETA: 20s)")
+@app.get("/download/mp4/", description="Downloads a URL's video, in browser. Just put a video url in the input to download it (ETA: 8s)" + mp4_lowQualityMessage_md)
 def get_in_mp4_video(url: str, background: BackgroundTasks):
     requestsLogger.info(f"New GET request of /download/mp4 for: {url}")
     #for youtube urls: #? other may be added for other sources
@@ -70,7 +78,7 @@ def get_in_mp4_video(url: str, background: BackgroundTasks):
     else:
         raise HTTPException(status_code=500, detail="Could not resolve video conversion.")
 
-@app.get(f"/v{app.version}" + "/compressed/mp3/", description="Downloads given URL's audio, in browser. Just put a video url in the input to download it (ETA: 20s)")
+@app.get("/compressed/mp3/", description="Downloads a URL's audio in a compressed file, in browser. Just put a video url in the input to download it (ETA: 20s)")
 def get_compressed_in_mp3(url: str, background: BackgroundTasks):
     requestsLogger.info(f"New GET request of /compressed/mp3 for: {url}")
     #for youtube urls: #? other may be added for other sources
@@ -101,7 +109,7 @@ def get_compressed_in_mp3(url: str, background: BackgroundTasks):
     else:
         raise HTTPException(status_code=500, detail="Could not resolve video conversion.")
 
-@app.get(f"/v{app.version}" + "/compressed/mp4/", description="Downloads given URL's audio, in browser. Just put a video url in the input to download it (ETA: 20s)")
+@app.get("/compressed/mp4/", description="Downloads a URL's video in a compressed file, in browser. Just put a video url in the input to download it (ETA: 20s)" + mp4_lowQualityMessage_md)
 def get_compressed_in_mp4(url: str, background: BackgroundTasks):
     requestsLogger.info(f"New GET request of /compressed/mp4 for: {url}")
     #for youtube urls: #? other may be added for other sources
