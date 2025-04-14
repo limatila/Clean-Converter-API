@@ -6,10 +6,7 @@ from src.config import (
     COOKIES_BACKUP_FILE_PATH
 )
 from src.middleware.loggers import cookiesLogger
-
-class CookieNotFound(Exception): #? shall be refactored if any other exceptions are created
-    def __init__(self, message: str):
-        super().__init__(message)
+from src.exceptions import CookieNotFound
 
 #should run one per request, to be correctly used
 def update_cookies():

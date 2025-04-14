@@ -9,25 +9,25 @@ API_DETAILS: dict[str, str] = {
     "summary": "An API for automatic download and conversion of Youtube videos, to Audio (.mp3) or Video (.mp4).",
     "description_md": (
         """<br>
-### This is:
+### We're in:
  the documentation page of this API, where you can use/test our services
 ## How to use:
 1. Copy a Youtube video link (in Youtube itself) of the video you want to download
-2. Select a service: in '**default**' section, you can use all of the services listed as *GET* methods
+2. Select a service in '**default**' section, you can use all of the services listed as *GET* methods
 3. Press the '**Try it out**' button to be able to input your URL
 4. Press '**Execute**', and wait for download
 5. You can get your video/audio bellow '*Responses*' section, at a button called '**Download file**'
 
 - *more help?* -> You can check a video that show the usage of this API in the **LINKS** section bellow.
 
-<br>
-- <b>NOTE:</b>
- you should note that this API doesn't have a HTTPS certificate, but use it in mind that IT SHOULD ONLY download MP3, MP4, and 7z (compressed audio and video) files. Use this as your will.
-
 ### **Links:**
 - [The github source code](https://github.com/limatila/Youtube-Clean-Converter) 
-- [A linkedin post that explains how to use the api](https://github.com/limatila/Youtube-Clean-Converter) 
-- [YT-DLP, the tool used to download the videos for this api](https://github.com/yt-dlp/yt-dlp) """
+- [A linkedin post that explains how to use the api](https://www.linkedin.com/feed/update/urn:li:ugcPost:7317375614452170752/) 
+- [YT-DLP, the tool used to download the videos for this api](https://github.com/yt-dlp/yt-dlp)
+
+<br>
+- <b>NOTE:</b>
+ you should note that this API doesn't have a HTTPS certificate, but use it in mind that IT SHOULD ONLY download MP3, MP4, and 7z (compressed audio and video) files. Use this as your will. """
     )
 }
 
@@ -73,7 +73,8 @@ YDL_OPTS: dict[ str, dict[str, any] ] = {
 }
 
 #File usage registry
-USAGE_REG_PATH = "./src/logs/usage-reg.json"
+USAGE_REG_PATH_MP3 = "./src/logs/usage-reg_mp3.json"
+USAGE_REG_PATH_MP4 = "./src/logs/usage-reg_mp4.json"
 USAGE_REG_INDENT = 2
 USAGE_REG_EXECUTIONS_KEY = "executedTimes"
 DEFAULT_FILE_EXTENSION = ".mp3"
@@ -84,5 +85,5 @@ BASE_LOGS_PATH: str = "./src/logs/"
 defaultFormatter = '#API_LOG > %(asctime)s - %(levelname)s - %(message)s'
 
 #DateTime configs
-defaultTimezone = "-03:00"
+defaultTimezone = "-03:00" #! not used, need fix
 defaultTimeFormat = "%d-%m(%y) %H:%M:%S"
