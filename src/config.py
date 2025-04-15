@@ -27,7 +27,9 @@ API_DETAILS: dict[str, str] = {
 
 <br>
 - <b>NOTE:</b>
- you should note that this API doesn't have a HTTPS certificate, but use it in mind that IT SHOULD ONLY download MP3, MP4, and 7z (compressed audio and video) files. Use this as your will. """
+ you should note that this API doesn't have a HTTPS certificate, but use it in mind that IT SHOULD ONLY download MP3, MP4, and 7z (compressed audio and video) files. Use this as your will.
+- <b>NOTE 2:</b>
+ as consequence of the first note, please only make HTTP requests, for now (don't let your broswer include https://, but http:// in the start of the url). """
     )
 }
 

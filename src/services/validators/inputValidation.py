@@ -5,7 +5,9 @@ from fastapi import HTTPException
 
 URL_PATTERNS = [
     "youtube.com/watch?v=", 
-    "youtu.be/"
+    "youtu.be/",
+    "youtube.com/shorts/",
+    "m.youtube.com/shorts/"
 ]
 
 def verify_youtube_url(url: str) -> HTTPException | None:
