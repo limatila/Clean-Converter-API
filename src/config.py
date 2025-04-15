@@ -24,6 +24,8 @@ API_DETAILS: dict[str, str] = {
 - [The github source code](https://github.com/limatila/Youtube-Clean-Converter) 
 - [A linkedin post that explains how to use the api](https://www.linkedin.com/feed/update/urn:li:ugcPost:7317375614452170752/) 
 - [YT-DLP, the tool used to download the videos for this api](https://github.com/yt-dlp/yt-dlp)
+- Email me: [atilalimade@gmail.com](mailto:atilalimade@gmail.com)
+- [Create an issue (for future fix)](https://github.com/limatila/Youtube-Clean-Converter/issues/new)
 
 <br>
 - <b>NOTE:</b>
