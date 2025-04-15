@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException, BackgroundTasks
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, RedirectResponse
 
 from src.config import API_DETAILS
 from src.services.validators import inputValidation
@@ -21,6 +21,10 @@ mp4_lowQualityMessage_md = """
 <br>
 **NOTE:** video downloads are available only at 360p, 30fps quality.
 """
+
+@app.get('/', description="redirects Root url to Documentation page", include_in_schema=False)
+def root_redirect():
+    return RedirectResponse("/docs", headers={"result": "redirected to Documentation page (at \'/docs\')"})
 
 @app.get("/download/mp3/", description="Downloads a URL's audio in mp3, in browser. Just put a video url in the input to download it (ETA: 20s)")
 def get_in_mp3_audio(url: str, background: BackgroundTasks):
