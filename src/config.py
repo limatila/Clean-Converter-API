@@ -91,3 +91,9 @@ defaultFormatter = '#API_LOG > %(asctime)s - %(levelname)s - %(message)s'
 #DateTime configs
 defaultTimezone = "-03:00" #! not used, need fix
 defaultTimeFormat = "%d-%m(%y) %H:%M:%S"
+
+#! mp4 are downloading at 360 30fps maximum!
+mp4_lowQualityMessage_md = """
+<br>
+**NOTE:** video downloads are available only at 360p, 30fps quality.
+"""
