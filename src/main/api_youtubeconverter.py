@@ -7,7 +7,7 @@ from slowapi.middleware import SlowAPIMiddleware
 from src.routers import *
 from src.config import API_DETAILS
 from src.services.validators.cookieValidation import validate_cookies
-from src.middleware.requestLimiters import ipLimiter
+from src.middleware.requestLimiters import globalLimiter
 
 app = FastAPI (
     version=API_DETAILS['version'],
@@ -15,7 +15,7 @@ app = FastAPI (
     summary=API_DETAILS['summary'],
     description=API_DETAILS['description_md']
 )
-app.state.limiter = ipLimiter
+app.state.limiter = globalLimiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(SlowAPIMiddleware)
 

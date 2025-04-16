@@ -99,5 +99,6 @@ mp4_lowQualityMessage_md = """
 **NOTE:** video downloads are available only at 360p, 30fps quality.
 """
 
-#SlowAPI - ip request limiter
-DEFAULT_REQUEST_LIMIT: str = "10/minute" # can be 20/second, 2/minute...
+#SlowAPI - request limiter
+DEFAULT_REQUEST_IP_LIMIT: str = "10/minute" # can be 20/second, 2/minute...
+DEFAULT_REQUEST_GLOBAL_LIMIT: str = "100/minute" # you can elevate this for high usage basis
