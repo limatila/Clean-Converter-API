@@ -10,7 +10,7 @@ from src.services.fileUsage_management import account_for_usage
 from src.middleware.loggers import requestsLogger
 from src.config import mp4_lowQualityMessage_md #!temporary
 
-downloads_router = APIRouter(prefix="/download")
+downloads_router = APIRouter(prefix="/download", tags=['Download'])
 
 @downloads_router.get("/mp3/", description="Downloads a URL's audio in mp3, in browser. Just put a video url in the input to download it (ETA: 20s)")
 def get_in_mp3_audio(request: Request, url: str, background: BackgroundTasks):

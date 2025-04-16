@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from fastapi import Request
 from fastapi.responses import RedirectResponse
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
@@ -22,10 +21,7 @@ app.add_middleware(SlowAPIMiddleware)
 
 app.include_router(downloads_router)
 app.include_router(compressions_router)
-
-@app.get('/', description="redirects Root url to Documentation page", include_in_schema=False)
-def root_redirect(request: Request):
-    return RedirectResponse("/docs", headers={"result": "redirected to Documentation page (at \'/docs\')"})
+app.include_router(swagger_router)
 
 # startup
 if __name__ == "__main__":

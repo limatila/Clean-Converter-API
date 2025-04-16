@@ -13,7 +13,8 @@ API_DETAILS: dict[str, str] = {
  the documentation page of this API, where you can use/test our services
 ## How to use:
 1. Copy a Youtube video link (in Youtube itself) of the video you want to download
-2. Select a service in '**default**' section, you can use all of the services listed as *GET* methods
+2. Select a service in '**Download**' or '**Compressed**', you can use all of the services listed as *GET* methods
+    - <i>this API limits requests up to 10 requests per minute.</i> 
 3. Press the '**Try it out**' button to be able to input your URL
 4. Press '**Execute**', and wait for download
 5. You can get your video/audio bellow '*Responses*' section, at a button called '**Download file**'
@@ -97,3 +98,6 @@ mp4_lowQualityMessage_md = """
 <br>
 **NOTE:** video downloads are available only at 360p, 30fps quality.
 """
+
+#SlowAPI - ip request limiter
+DEFAULT_REQUEST_LIMIT: str = "10/minute" # can be 20/second, 2/minute...

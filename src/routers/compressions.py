@@ -11,7 +11,7 @@ from src.services.fileUsage_management import account_for_usage
 from src.middleware.loggers import requestsLogger
 from src.config import mp4_lowQualityMessage_md #!temporary
 
-compressions_router = APIRouter(prefix="/compressed")
+compressions_router = APIRouter(prefix="/compressed", tags=['Compressed'])
 
 @compressions_router.get("/mp3/", description="Downloads a URL's audio in a compressed file, in browser. Just put a video url in the input to download it (ETA: 20s)")
 def get_compressed_in_mp3(request: Request, url: str, background: BackgroundTasks):
