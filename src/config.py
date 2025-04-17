@@ -51,7 +51,7 @@ YDL_OPTS: dict[ str, dict[str, any] ] = {
     #a group of yt-dlp options to be used in downloads methods.
     #shall be used in 'YoutubeDL(YDL_OPTS['your-option'])'.
     'SINGLE_MP3': {
-        'format': 'bestaudio/best',
+        'format': 'bestaudio[abr<=192]/bestaudio/best',
         'outtmpl': str(DOWNLOADS_FOLDER_PATH_MP3 / '%(title)s'),
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
