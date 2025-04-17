@@ -65,7 +65,7 @@ YDL_OPTS: dict[ str, dict[str, any] ] = {
         'quiet': QUIET_EXECUTION_OPTION
     },
     'SINGLE_MP4': {
-        'format': 'best[ext=mp4]/best',
+        'format': 'bestvideo[ext=mp4][height<=720][fps<=60]+bestaudio/best[ext=mp4][height<=720][fps<=60]/best',
         'outtmpl': str(DOWNLOADS_FOLDER_PATH_MP4 / '%(title)s.%(ext)s'),
         'cookiefile': COOKIES_FILE_PATH,
         'noplaylist': True,
